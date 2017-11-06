@@ -38,7 +38,7 @@ export default class SplashWalls extends Component {
 
   renderResults() {
     return (
-      <View>
+      <View style={styles.resultDataContainer}>
         <Text>
           Data loaded
         </Text>
@@ -73,5 +73,11 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: '#fff'
+  },
+  resultDataContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20
   }
 });
