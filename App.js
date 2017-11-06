@@ -12,6 +12,10 @@ export default class SplashWalls extends Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchWallsJSON();
+  }
+
   fetchWallsJSON() {
     console.log('Wallpapers will be fetched');
   }
