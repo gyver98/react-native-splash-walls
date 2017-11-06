@@ -1,6 +1,8 @@
+import Expo from 'expo';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import * as utilFunction from './RandManager';
+import Swiper from 'react-native-swiper';
 
 const NUM_WALLPAPERS = 5;
 
@@ -52,15 +54,20 @@ export default class SplashWalls extends Component {
     const {wallsJSON, isLoading} = this.state;
     if(!isLoading) {
       return (
-        <View>
+        <Swiper
+        dot={<View style={styles.dotStyle} />}
+        activeDot={<View style={styles.activeDotStyle} />}
+        loop={false}
+        onMomentumScrollEnd={this.onMomentumScrollEnd}
+        >
         {wallsJSON.map((wallpaper, index) => {
           return(
-            <Text key={index}>
+            <Text style={styles.resultDataContainer} key={index}>
               {wallpaper.author}
             </Text>
           );
         })}
-        </View>  
+        </Swiper>  
       );
     }
   }
@@ -98,5 +105,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20
+  },
+  dotStyle: {
+    backgroundColor:'#000', 
+    width: 8, 
+    height: 8,
+    borderRadius: 10, 
+    marginLeft: 3, 
+    marginRight: 3, 
+    marginTop: 3, 
+    marginBottom: 3,
+  },
+  activeDotStyle: {
+    backgroundColor: 'blue', 
+    width: 13, 
+    height: 13, 
+    borderRadius: 7, 
+    marginLeft: 7, 
+    marginRight: 7
   }
 });
