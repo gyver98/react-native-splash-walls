@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 export default class SplashWalls extends Component {
 
@@ -22,18 +22,38 @@ export default class SplashWalls extends Component {
       .then( response => response.json())
       .then( jsondata => {
         console.log(jsondata);
+        this.setState({isLoading: false});
       })
       .catch( error => console.log('Fetch error : '+ error));
   }
 
-  render() {
+  renderLoadingMessage() {
     return (
-      <View style={styles.container}>
-        <Text>Welcome to SplashWalls!!!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View style={styles.loadingContainer} >
+        <ActivityIndicator size='small' />
+        <Text style={styles.loadingText}>Contacting Unsplash</Text>
       </View>
     );
+  }
+
+  renderResults() {
+    return (
+      <View>
+        <Text>
+          Data loaded
+        </Text>
+      </View>
+    );
+  }
+
+  render() {
+    //this.state.isLoading ? this.renderLoadingMessage : this.renderResults;
+    if(this.state.isLoading) {
+      console.log("isLoading true");
+      return this.renderLoadingMessage();
+    } else {
+      return this.renderResults();
+    }
   }
 }
 
@@ -44,4 +64,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loadingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000'
+  },
+  loadingText: {
+    color: '#fff'
+  }
 });
