@@ -1,9 +1,12 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, Dimensions } from 'react-native';
 import * as utilFunction from './RandManager';
 import Swiper from 'react-native-swiper';
+import NetworkImage from 'react-native-image-progress';
+import ProgressCircle from 'react-native-progress/Circle';
 
+const { width, height } = Dimensions.get('window');
 const NUM_WALLPAPERS = 5;
 
 export default class SplashWalls extends Component {
@@ -62,9 +65,19 @@ export default class SplashWalls extends Component {
         >
         {wallsJSON.map((wallpaper, index) => {
           return(
-            <Text style={styles.resultDataContainer} key={index}>
-              {wallpaper.author}
-            </Text>
+            <View key={index}>
+              <NetworkImage
+              source={{uri: `https://unsplash.it/${wallpaper.width}/${wallpaper.height}?image=${wallpaper.id}`}}
+                indicator={ProgressCircle.Circle}
+                style={styles.wallpaperImage}
+                indicatorProps={{
+                  color: 'rgba(255, 255, 255)',
+                  size: 60,
+                  thickness: 7  
+                }}
+              >
+              </NetworkImage>
+            </View>
           );
         })}
         </Swiper>  
@@ -123,5 +136,11 @@ const styles = StyleSheet.create({
     borderRadius: 7, 
     marginLeft: 7, 
     marginRight: 7
+  },
+  wallpaperImage: {
+    flex: 1,
+    width: width,
+    height: height,
+    backgroundColor: '#000'
   }
 });
