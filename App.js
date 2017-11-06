@@ -56,7 +56,7 @@ export default class SplashWalls extends Component {
         {wallsJSON.map((wallpaper, index) => {
           return(
             <Text key={index}>
-              {wallpaper.id}
+              {wallpaper.author}
             </Text>
           );
         })}
