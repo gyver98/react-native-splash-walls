@@ -17,7 +17,13 @@ export default class SplashWalls extends Component {
   }
 
   fetchWallsJSON() {
-    console.log('Wallpapers will be fetched');
+    const url = 'http://unsplash.it/list';
+    fetch(url)
+      .then( response => response.json())
+      .then( jsondata => {
+        console.log(jsondata);
+      })
+      .catch( error => console.log('Fetch error : '+ error));
   }
 
   render() {
