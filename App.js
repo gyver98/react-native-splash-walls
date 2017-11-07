@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, Dimensions, PanResponder } from 'react-native';
 import * as utilFunction from './RandManager';
 import Swiper from 'react-native-swiper';
 import NetworkImage from 'react-native-image-progress';
@@ -19,6 +19,30 @@ export default class SplashWalls extends Component {
       wallsJSON: [],
       isLoading: true
     };
+
+    this.imagePanResponder = {};
+  }
+
+  handleStartShouldSetPanResponder(e, gestureState) {
+    return true;
+  }
+
+  handlePanResponderGrant(e, gestureState) {
+    console.log('Finger touched the image');
+  }
+
+  handlePanResponderEnd(e, gestureState) {
+    console.log('Finger pulled up from the image');
+  }
+
+  componentWillMount() {
+    this.imagePanResponder = PanResponder.create({
+      onStartShouldSetPanResponder: this.handleStartShouldSetPanResponder,
+      onPanResponderGrant: this.handlePanResponderGrant,
+      onPanResponderRelease: this.handlePanResponderEnd,
+      onPanResponderTerminate: this.handlePanResponderEnd 
+    });
+    console.log("after componentWillMount");
   }
 
   componentDidMount() {
@@ -76,6 +100,7 @@ export default class SplashWalls extends Component {
                   size: 60,
                   thickness: 7  
                 }}
+                {...this.imagePanResponder.panHandlers}
               >
                 <Text style={styles.label}>Photo by</Text>
                 <Text style={styles.label_authorName}>{wallpaper.author}</Text>
