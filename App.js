@@ -10,7 +10,7 @@ import * as Utils from './Utils';
 
 const { width, height } = Dimensions.get('window');
 const NUM_WALLPAPERS = 5;
-const DOUBLE_TAP_DELAY = 300; // milliseconds
+const DOUBLE_TAP_DELAY = 3000; // milliseconds
 const DOUBLE_TAP_RADIUS = 20;
 
 export default class SplashWalls extends Component {
@@ -37,12 +37,11 @@ export default class SplashWalls extends Component {
   handleStartShouldSetPanResponder(e, gestureState) {
     return true;
   }
-
   handlePanResponderGrant(e, gestureState) {
-    const currentTouchTimeStamp = Date.now();
-    if(this.isDoubleTap(currentTouchTimeStamp, gestureState)) {
-      console.log('Double tap detected');
-    }
+    var currentTouchTimeStamp = Date.now();
+
+    if( this.isDoubleTap(currentTouchTimeStamp, gestureState) ) 
+    console.log('Double tap detected');
 
     this.prevTouchInfo = {
       prevTouchX: gestureState.x0,
@@ -58,7 +57,11 @@ export default class SplashWalls extends Component {
   isDoubleTap(currentTouchTimeStamp, {x0, y0}) {
     var {prevTouchX, prevTouchY, prevTouchTimeStamp} = this.prevTouchInfo;
     var dt = currentTouchTimeStamp - prevTouchTimeStamp;
-  
+    console.log('dt : ' + dt);
+    console.log('currentTouchTimeStamp : '+ currentTouchTimeStamp + ' prevTouchTimeStamp : '+prevTouchTimeStamp);
+    console.log('isDoubleTap time : ' + (dt < DOUBLE_TAP_DELAY)); 
+    console.log('isDoubleTap Utils.distance : '+ Utils.distance(prevTouchX, prevTouchY, x0, y0) );
+    console.log('isDoubleTap return : '+ (Utils.distance(prevTouchX, prevTouchY, x0, y0) < DOUBLE_TAP_RADIUS));
     return (dt < DOUBLE_TAP_DELAY && Utils.distance(prevTouchX, prevTouchY, x0, y0) < DOUBLE_TAP_RADIUS);
   }
 
