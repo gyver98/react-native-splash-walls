@@ -77,6 +77,8 @@ export default class SplashWalls extends Component {
                   thickness: 7  
                 }}
               >
+                <Text style={styles.label}>Photo by</Text>
+                <Text style={styles.label_authorName}>{wallpaper.author}</Text>
               </NetworkImage>
             </View>
           );
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   dotStyle: {
-    backgroundColor:'#000', 
+    backgroundColor:'rgba(255,255,255,.4)', 
     width: 8, 
     height: 8,
     borderRadius: 10, 
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   activeDotStyle: {
-    backgroundColor: 'blue', 
+    backgroundColor: '#fff', 
     width: 13, 
     height: 13, 
     borderRadius: 7, 
@@ -143,5 +145,28 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: '#000'
+  },
+  label: {
+    position: 'absolute',
+    color: '#fff',
+    fontSize: 13,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 2,
+    paddingLeft: 5,
+    top: 30,
+    left: 20,
+    width: width/2
+  },
+  label_authorName: {
+    position: 'absolute',
+    color: '#fff',
+    fontSize: 15,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 2,
+    paddingLeft: 5,
+    top: 51,
+    left: 20,
+    fontWeight: 'bold',
+    width: width/2
   }
 });
